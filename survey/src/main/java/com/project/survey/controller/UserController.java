@@ -2,7 +2,7 @@ package com.project.survey.controller;
 
 
 import com.project.survey.model.User;
-import com.project.survey.service.UserService;
+import com.project.survey.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UserController(UserService userService) {
+    public UserController(UserServiceImpl userService) {
         this.userService = userService;
     }
 
@@ -36,16 +36,16 @@ public class UserController {
         return "My Name is "+name;
     }
 
-//    @GetMapping("createUser/{userData}")
-//    public String createUser(@PathVariable String userData){
-//
-//        return "Kullanıcı oluşturuldu " + userData;
-//    }
+    @GetMapping("createUser/{userData}")
+    public String createUser(@PathVariable String userData){
+
+        return "Kullanıcı oluşturuldu " + userData;
+    }
 
     @PostMapping("createUser")
     public ResponseEntity<User> createUser(@RequestBody User user){
 
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.save(user.getId(),user), HttpStatus.CREATED);
 
     }
 }

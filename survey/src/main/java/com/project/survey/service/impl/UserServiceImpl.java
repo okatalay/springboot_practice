@@ -1,6 +1,8 @@
 package com.project.survey.service.impl;
 import com.project.survey.model.User;
 import com.project.survey.service.IUserService;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /*
@@ -9,6 +11,7 @@ Note: 1- First implement the IUserService interface and override all methods
       3- You can use 'super' keyword to call the methods of AbstractService class
 */
 
+@Service
 public class UserServiceImpl extends AbstractService<User,Long> implements IUserService {
     @Override
     public User save(Long id, User object) {
