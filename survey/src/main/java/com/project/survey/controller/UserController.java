@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("api/v1/users")
@@ -43,9 +45,21 @@ public class UserController {
 //    }
 
     @PostMapping("createUser")
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<?> createUser(@RequestBody User user){
 
         return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
-
     }
+
+
+    @GetMapping("showUsers")
+    public ResponseEntity<?> showUsers(){
+        return new ResponseEntity<>(userService.showUsers(), HttpStatus.OK);
+    }
+
+    
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<?> handleRuntimeException(RuntimeException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
 }
